@@ -66,7 +66,8 @@ public class BlsArtifactSigner implements ArtifactSigner {
 
     for (int port = 8080; port < 8083; port++) {
       SignatureResponse signatureResponse;
-      String url = "http://localhost:" + port + "/api/v1/test";
+      // TODO: Move hardcoded values to application.yaml file
+      String url = "http://localhost:" + port + "/api/v1/sign";
       String encodedSignatureResponse = requestSignature(encodedData, url);
       try {
         signatureResponse = this.objectMapper.readValue(encodedSignatureResponse, SignatureResponse.class);
