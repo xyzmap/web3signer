@@ -14,6 +14,7 @@ package tech.pegasys.web3signer.core.signing;
 
 import static tech.pegasys.web3signer.core.util.IdentifierUtils.normaliseIdentifier;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -72,7 +73,7 @@ public class BlsArtifactSigner implements ArtifactSigner {
         blsSignatures.add(BLSSignature.fromSSZBytes(Base64.decode(signatureResponse.getSignature())));
         blsPublicKeys.add(BLSPublicKey.fromSSZBytes(Base64.decode(signatureResponse.getPublicKey())));
       } catch (JsonProcessingException e) {
-        e.printStackTrace();
+        throw new RuntimeException(e);
       }
     }
 
@@ -111,8 +112,8 @@ public class BlsArtifactSigner implements ArtifactSigner {
               .body(Mono.just(newSignatureRequest.toString()), String.class)
               .retrieve()
               .bodyToMono(String.class)
-              .timeout(Duration.ofMillis(10000))
-              .retryWhen(Retry.backoff(3, Duration.ofMillis(1000))
+              .timeout(Duration.ofSeconds(10))
+              .retryWhen(Retry.backoff(3, Duration.ofSeconds(1))
                       .jitter(0d)
                       .doBeforeRetry(retrySignal -> {
                         logger.warn("Retrying: "
