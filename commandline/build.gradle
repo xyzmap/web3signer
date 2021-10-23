@@ -13,7 +13,8 @@ jar {
 
 dependencies {
 
-  implementation project(":core")
+  implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+    implementation project(":core")
   implementation project(":slashing-protection")
   implementation 'info.picocli:picocli'
   implementation 'com.google.guava:guava'

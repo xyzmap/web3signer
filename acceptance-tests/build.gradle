@@ -19,7 +19,8 @@ plugins {
 
 dependencies {
 
-  testImplementation project(":app")
+  implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+    testImplementation project(":app")
   testImplementation project(":core")
 
   testImplementation 'org.apache.tuweni:tuweni-bytes'

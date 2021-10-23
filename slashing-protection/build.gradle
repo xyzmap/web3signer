@@ -15,7 +15,8 @@ jar {
 }
 
 dependencies {
-  implementation project(':common')
+  implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+    implementation project(':common')
   implementation 'com.google.guava:guava'
   implementation 'org.apache.logging.log4j:log4j-api'
   implementation 'org.apache.logging.log4j:log4j-core'
