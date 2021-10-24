@@ -64,10 +64,10 @@ public class BlsArtifactSigner implements ArtifactSigner {
     List<BLSPublicKey> blsPublicKeys = Collections.emptyList();
     List<BLSSignature> blsSignatures = Collections.emptyList();
 
-    for (int port = 8080; port < 8083; port++) {
+    for (int nodeNumber = 1; nodeNumber <= 3; nodeNumber++) {
       SignatureResponse signatureResponse;
       // TODO: Move hardcoded values to application.yaml file
-      String url = "http://localhost:" + port + "/api/v1/sign";
+      String url = "http://node" + nodeNumber + ":8080/api/v1/sign";
       String encodedSignatureResponse = requestSignature(encodedData, url);
       try {
         signatureResponse = this.objectMapper.readValue(encodedSignatureResponse, SignatureResponse.class);
